@@ -1,0 +1,6 @@
+.weather__search {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  top: 5px;
+}

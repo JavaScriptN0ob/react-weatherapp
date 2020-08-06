@@ -1,0 +1,5 @@
+.weather__forecast {
+  /* border: 1px solid red; */
+  display: flex;
+  margin-left: 10px;
+}

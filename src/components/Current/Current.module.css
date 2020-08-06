@@ -1,0 +1,65 @@
+.weather__current {
+  /* border: 1px solid tomato; */
+}
+
+.current__temp_weather {
+  /* border: 1px solid purple; */
+  width: 250px;
+  padding: 30px 10px 10px 10px;
+}
+
+.temp_weather__temp {
+  position: relative;
+  font-size: 70px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.temp_weather__temp::after {
+  content: "";
+  border: 5px solid black;
+  border-radius: 50%;
+  width: 10px;
+  height: 10px;
+  display: block;
+  position: absolute;
+  top: 10px;
+  left: 175px
+}
+
+.temp_weather__weather {
+  font-size: 15px;
+  letter-spacing: 2px;
+  text-align: center;
+}
+
+.current__humidity_wind {
+  /* border: 1px solid red; */
+  display: flex;
+}
+
+.humidity_wind {
+  /* border: 1px solid springgreen; */
+  margin: 10px 30px;
+  width: 70px;
+}
+
+.humidity_wind__divider {
+  height: 40px;
+  background-color: gray;
+  width: 2px;
+  border-radius: 10px;
+  margin-top: 8px;
+}
+
+.humidity_wind__title {
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-align: center;
+}
+
+.humidity_wind__value {
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-align: center;
+}

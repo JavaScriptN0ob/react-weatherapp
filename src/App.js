@@ -1,26 +1,111 @@
 import React from 'react';
 import logo from './logo.svg';
-import './App.css';
+import Current from './components/Current';
+import City from './components/City';
+import styles from './App.module.css';
+import News from './components/News';
+import Forecast from './components/Forecast';
+import Search from './components/Search';
+import getCurrent from './components/APIs/getCurrent';
+import getForecast from './components/APIs/getForecast';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      countryName: "Australia",
+      cityName: "Sydney",
+      today: new Date().getDay(),
+      temp: "12",
+      weather: "cloudy",
+      humidity: "64%",
+      wind: "12K/M",
+    };
+
+    this.getCurrentData = this.getCurrentData.bind(this);
+  }
+
+  async getCurrentData() {
+    const { cityName, countryName } = this.state;
+    console.log(cityName, countryName);
+    const weatherCurrentData = await getCurrent(cityName, countryName); 
+    console.log(weatherCurrentData.response);
+    this.setState({
+      countryName: weatherCurrentData.response.city.country,
+      cityName: weatherCurrentData.response.city.name,
+      temp: weatherCurrentData.response.current.maxCelsius,
+      weather: weatherCurrentData.response.current.weather,
+      humidity: `${weatherCurrentData.response.current.humidity}%`,
+      wind: `${weatherCurrentData.response.current.windSpeed}K/M`,
+    })
+  }
+
+  render() {
+    const { temp, weather, humidity, wind, cityName, today } = this.state
+
+    return (
+      <div className={styles.weather__background}>
+        <Search onClick={this.getCurrentData} />
+        <div className={styles.weather__container}>
+          <div className={styles.weather_top}>
+            <Current
+              temp={temp} 
+              weather={weather}
+              humidity={humidity}
+              wind={wind}
+            />
+            <City 
+              city={cityName}
+            />
+          </div>
+          <div className={styles.weather__divider}></div>
+          <div className={styles.weather_bottom}>
+            <News />
+            <div className={styles.weather_bottom__divider}></div>
+            <Forecast today={today} />
+          </div>
+        </div>
+      </div>
+    )
+  }
+  // constructor(props) {
+  //   super(props)
+  //   this.state = {
+  //     input: "",
+  //   }
+  //   let timerID;
+  // }
+
+  
+  // handleInput = (e) => {
+  //   this.setState({
+  //     input: e.target.value,
+  //   }, () => {
+  //     if (this.timerID) {
+  //       clearTimeout(this.timerID);
+  //     }
+  //     this.timerID = setTimeout(() => console.log(this.state.input), 1000);
+  //   })
+  // }
+
+  // handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   alert('Name input is ' + this.state.input);
+  // }
+  
+  // render() {
+  //   return(
+  //     <form onSubmit={this.handleSubmit}>
+  //       <label>
+  //         Name:
+  //         <input type="text" value={this.state.input} onChange={this.handleInput}></input>
+  //       </label>
+  //       <input type="submit" value="Submit"></input>
+  //     </form>
+  //   )
+  // }
 }
+
 
 export default App;

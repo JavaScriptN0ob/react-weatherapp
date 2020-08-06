@@ -1,0 +1,45 @@
+.forecast {
+  /* border: 1px solid black; */
+  display: flex;
+  flex-direction: column;
+  width: 85px;
+  text-align: center;
+  font-size: 18px;
+}
+
+.forecast__day {
+  /* border: 1px solid red; */
+  font-weight: bold;
+}
+
+.forecast__icon {
+  margin-top: 5px;
+  text-align: center;
+  /* border: 1px solid greenyellow; */
+  height: 25px;
+  zoom: 0.88;
+}
+
+.forecast__temp {
+  /* border: 1px solid black; */
+  margin-top: 70px;
+  font-size: 18px;
+  position: relative;
+}
+
+.forecast__temp::after {
+  content: "";
+  display: block;
+  width: 3px;
+  height: 3px;
+  border: 1.5px solid black;
+  border-radius: 50%;
+  position: absolute;
+  left: 56px;
+  top: 4px
+}
+
+.forecast__weather {
+  /* border: 1px solid blue; */
+  font-size: 12px;
+}
