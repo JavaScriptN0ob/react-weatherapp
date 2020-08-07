@@ -15,6 +15,7 @@ class App extends React.Component {
     this.state = {
       countryName: "",
       cityName: "",
+      cityNameDisplay: "",
       today: new Date().getDay(),
       temp: "",
       weather: "",
@@ -56,13 +57,26 @@ class App extends React.Component {
 
   async getCurrentData() {
     const { cityName, countryName } = this.state;
+
     // console.log(cityName, countryName);
+    if (!cityName || !countryName) {
+      alert('please enter city name and country name')
+      return;
+    }
+
     const weatherCurrentData = await getCurrent(cityName, countryName); 
     const weatherForecastDate = await getForecast(cityName, countryName);
-    console.log(weatherCurrentData.response);
+    
+    // console.log(weatherCurrentData.response);
+    if (!weatherCurrentData || !weatherForecastDate) {
+      alert('please check your city name and country name spelling');
+      return;
+    }
+    
     this.setState({
       countryName: weatherCurrentData.response.city.country,
       cityName: weatherCurrentData.response.city.name,
+      cityNameDisplay: weatherCurrentData.response.city.name,
       temp: Math.round(weatherCurrentData.response.current.maxCelsius),
       weather: weatherCurrentData.response.current.weather,
       humidity: `${weatherCurrentData.response.current.humidity}%`,
@@ -108,7 +122,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { temp, weather, humidity, wind, cityName, today, forecast } = this.state
+    const { temp, weather, humidity, wind, cityNameDisplay, today, forecast } = this.state
 
     return (
       <div className={styles.weather__background}>
@@ -128,7 +142,7 @@ class App extends React.Component {
               wind={wind}
             />
             <City 
-              city={cityName}
+              city={cityNameDisplay}
             />
           </div>
           <div className={styles.weather__divider}></div>
