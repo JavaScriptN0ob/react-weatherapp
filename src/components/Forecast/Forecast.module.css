@@ -3,3 +3,12 @@
   display: flex;
   margin-left: 10px;
 }
+
+.waiting_search {
+  width: 435px;
+  text-align: center;
+  font-size: 30px;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  line-height: 180px;
+}
