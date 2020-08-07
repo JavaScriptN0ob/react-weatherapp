@@ -2,6 +2,16 @@
   /* border: 1px solid tomato; */
 }
 
+.search {
+  width: 250px;
+  background-color: rgba(0, 0, 0, 0.7);
+  height: 100%;
+  text-align: center;
+  color: white;
+  font-size: 30px;
+  line-height: 175px;
+}
+
 .current__temp_weather {
   /* border: 1px solid purple; */
   width: 250px;

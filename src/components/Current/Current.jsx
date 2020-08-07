@@ -2,6 +2,14 @@ import React from 'react';
 import styles from './Current.module.css';
 
 function Current(props) {
+  if (!props.temp) {
+    return (
+      <div className={styles.weather__current}>
+        <div className={styles.search}>Waiting</div>
+      </div>
+    )
+  }
+
   return (
     <div className={styles.weather__current}>
       <div className={styles.current__temp_weather}>

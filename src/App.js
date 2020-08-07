@@ -16,10 +16,10 @@ class App extends React.Component {
       countryName: "",
       cityName: "",
       today: new Date().getDay(),
-      temp: "12",
-      weather: "cloudy",
-      humidity: "64%",
-      wind: "12K/M",
+      temp: "",
+      weather: "",
+      humidity: "",
+      wind: "",
       forecast: [
         {
           weatherID: "999",
