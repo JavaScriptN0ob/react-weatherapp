@@ -23,31 +23,32 @@ class App extends React.Component {
       wind: "",
       forecast: [
         {
-          weatherID: "999",
-          temp: "13",
-          weather: "Rain",
+          weatherID: "",
+          temp: "",
+          weather: "",
         },
         {
-          weatherID: "500",
-          temp: "14",
-          weather: "Rain",
+          weatherID: "",
+          temp: "",
+          weather: "",
         },
         {
-          weatherID: "501",
-          temp: "11",
-          weather: "Rain",
+          weatherID: "",
+          temp: "",
+          weather: "",
         },
         {
-          weatherID: "500",
-          temp: "14",
-          weather: "Rain",
+          weatherID: "",
+          temp: "",
+          weather: "",
         },
         {
-          weatherID: "804",
-          temp: "13",
-          weather: "Clouds",
+          weatherID: "",
+          temp: "",
+          weather: "",
         },
-      ]
+      ],
+      loading: false,
     };
     
     this.getCurrentData = this.getCurrentData.bind(this);
@@ -64,12 +65,15 @@ class App extends React.Component {
       return;
     }
 
+    this.handleLoading();
+
     const weatherCurrentData = await getCurrent(cityName, countryName); 
     const weatherForecastDate = await getForecast(cityName, countryName);
     
     // console.log(weatherCurrentData.response);
     if (!weatherCurrentData || !weatherForecastDate) {
       alert('please check your city name and country name spelling');
+      this.handleLoadingFinish();
       return;
     }
     
@@ -107,6 +111,8 @@ class App extends React.Component {
         },
       ]
     })
+
+    this.handleLoadingFinish();
   }
 
   handleCountryInput(countryText) {
@@ -121,9 +127,36 @@ class App extends React.Component {
     })
   }
 
-  render() {
-    const { temp, weather, humidity, wind, cityNameDisplay, today, forecast } = this.state
+  handleLoading = () => {
+    this.setState({
+      loading: true,
+    })
+  }
 
+  handleLoadingFinish = () => {
+    this.setState({
+      loading: false,
+    })
+  }
+
+  render() {
+    const { temp, weather, humidity, wind, cityNameDisplay, today, forecast, loading } = this.state
+
+    if (this.state.loading) {
+      return (
+        <div className={styles.weather__background}>
+          <Search 
+            onCityChange={this.handleCityInput} 
+            onCountryChange={this.handleCountryInput}
+            cityText={this.state.cityName} 
+            countryText={this.state.countryName}
+            onSearch={this.getCurrentData}
+          />
+          <div className={styles.loader}>
+          </div>
+        </div>
+      )
+    }
     return (
       <div className={styles.weather__background}>
         <Search 

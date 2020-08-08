@@ -5,7 +5,7 @@ function City(props) {
   if (!props.city) {
     return (
       <div className={styles.weather__city}>
-        <div className={styles.search}>Waiting for the first search</div>
+        <div className={styles.search}>for the first search</div>
       </div>
     )
   }
