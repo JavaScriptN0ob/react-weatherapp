@@ -19,29 +19,37 @@ class Search extends React.Component {
 
   render() {
     return (
-      <div className={styles.weather__search}>
-        <div>
-          <label>Enter city name:</label>
+      <div className={styles.add_city}>
+        <div className={styles.weather__search}>
+          <div>
+            <label>Enter city name:</label>
+            <input 
+              type="text" 
+              value={this.props.cityText} 
+              onChange={this.handleCityInputChange}
+            />
+          </div>
+          <div>
+            <label>Enter country:</label>
+            <input 
+              type="text" 
+              value={this.props.countryText} 
+              onChange={this.handleCountryInputChange} 
+            />
+          </div>
           <input 
-            type="text" 
-            value={this.props.cityText} 
-            onChange={this.handleCityInputChange}
+            type="submit" 
+            value="Search" 
+            className={styles.search} 
+            onClick={this.props.onSearch} 
+          />
+          <input 
+            type="submit" 
+            value="AddCity" 
+            className={styles.add} 
+            onClick={this.props.onAdd} 
           />
         </div>
-        <div>
-          <label>Enter country:</label>
-          <input 
-            type="text" 
-            value={this.props.countryText} 
-            onChange={this.handleCountryInputChange} 
-          />
-        </div>
-        <input 
-          type="submit" 
-          value="Search" 
-          className={styles.search} 
-          onClick={this.props.onSearch} 
-        />
       </div>
     )
   }

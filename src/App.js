@@ -7,7 +7,7 @@ import Forecast from './components/Forecast';
 import Search from './components/Search';
 import getCurrent from './components/APIs/getCurrent/index';
 import getForecast from './components/APIs/getForecast/index';
-
+import AddCity from './components/AddCity';
 
 class App extends React.Component {
   constructor(props) {
@@ -49,11 +49,14 @@ class App extends React.Component {
         },
       ],
       loading: false,
+      cityArray: [],
+      cityNumber: 0,
     };
     
     this.getCurrentData = this.getCurrentData.bind(this);
     this.handleCountryInput = this.handleCountryInput.bind(this);
     this.handleCityInput = this.handleCityInput.bind(this);
+    this.testCity = this.testCity.bind(this);
   }
 
   async getCurrentData() {
@@ -139,10 +142,50 @@ class App extends React.Component {
     })
   }
 
+  handleAddCity = () => {
+    const { cityName, countryName, cityArray, cityNumber } = this.state;
+    if (cityArray.length > '3') {
+      alert ('maximum number of cities(4) reached, could not add any more city')
+      return;
+    }
+
+    if (!cityName || !countryName) {
+      alert('please enter city name and country name')
+      return;
+    }
+
+    let newCityArray = [...this.state.cityArray];
+    newCityArray.push(cityNumber);
+    
+
+    this.setState({
+      cityArray: newCityArray,
+      cityNumber: cityNumber + 1,
+    });
+  }
+
+  handleDeleteCard = (index) => {
+    console.log('delete card');
+    console.log('cardIndex', index);
+
+    const newCardArray = [...this.state.cityArray];
+    newCardArray.splice(index, 1);
+    this.setState({
+      cityArray: newCardArray,
+    }, () => console.log(this.state.cityArray));
+  }
+
+  testCity(city) {
+    this.setState({
+      cityName: city,
+    }, () => this.getCurrentData());
+    
+  }
+
   render() {
     const { temp, weather, humidity, wind, cityNameDisplay, today, forecast, loading } = this.state
 
-    if (this.state.loading) {
+    if (loading) {
       return (
         <div className={styles.weather__background}>
           <Search 
@@ -152,6 +195,20 @@ class App extends React.Component {
             countryText={this.state.countryName}
             onSearch={this.getCurrentData}
           />
+          <div className={styles.new_city}>
+            {this.state.cityArray.map((item, index) => {
+              return (
+                <AddCity
+                  key={index}
+                  city={this.state.cityName}
+                  country={this.state.countryName}
+                  index={index}
+                  onRender={this.testCity}
+                  onDelete={this.handleDeleteCard}
+                />
+              )
+            })}
+          </div>
           <div className={styles.loader}>
           </div>
         </div>
@@ -165,7 +222,22 @@ class App extends React.Component {
           cityText={this.state.cityName} 
           countryText={this.state.countryName}
           onSearch={this.getCurrentData}
+          onAdd={this.handleAddCity}
         />
+        <div className={styles.new_city}>
+          {this.state.cityArray.map((item, index) => {
+            return (
+              <AddCity
+                key={index}
+                city={this.state.cityName}
+                country={this.state.countryName}
+                index={index}
+                onRender={this.testCity}
+                onDelete={this.handleDeleteCard}
+              />
+            )
+          })}
+        </div>
         <div className={styles.weather__container}>
           <div className={styles.weather_top}>
             <Current
@@ -188,43 +260,6 @@ class App extends React.Component {
       </div>
     )
   }
-  // constructor(props) {
-  //   super(props)
-  //   this.state = {
-  //     input: "",
-  //   }
-  //   let timerID;
-  // }
-
-  
-  // handleInput = (e) => {
-  //   this.setState({
-  //     input: e.target.value,
-  //   }, () => {
-  //     if (this.timerID) {
-  //       clearTimeout(this.timerID);
-  //     }
-  //     this.timerID = setTimeout(() => console.log(this.state.input), 1000);
-  //   })
-  // }
-
-  // handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   alert('Name input is ' + this.state.input);
-  // }
-  
-  // render() {
-  //   return(
-  //     <form onSubmit={this.handleSubmit}>
-  //       <label>
-  //         Name:
-  //         <input type="text" value={this.state.input} onChange={this.handleInput}></input>
-  //       </label>
-  //       <input type="submit" value="Submit"></input>
-  //     </form>
-  //   )
-  // }
 }
-
 
 export default App;

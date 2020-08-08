@@ -22,6 +22,16 @@
   100% { transform: rotate(360deg); }
 }
 
+.new_city {
+  /* border: 1px solid red; */
+  width: 700px;
+  height: 90px;
+  position: absolute;
+  top: 5px;
+  left: 320px;
+  display: flex;
+}
+
 .weather__container {
   /* border: 1px solid black; */
   background-color: #ffaa00;
