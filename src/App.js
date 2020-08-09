@@ -2,7 +2,7 @@ import React from 'react';
 import Current from './components/Current';
 import City from './components/City';
 import styles from './App.module.css';
-import News from './components/News';
+import GoogleMap from './components/GoogleMap';
 import Forecast from './components/Forecast';
 import Search from './components/Search';
 import getCurrent from './components/APIs/getCurrent/index';
@@ -51,6 +51,8 @@ class App extends React.Component {
       loading: false,
       cityArray: [],
       cityNumber: 0,
+      currentLat: "",
+      currentLon: "",
     };
     
     this.getCurrentData = this.getCurrentData.bind(this);
@@ -72,6 +74,7 @@ class App extends React.Component {
 
     const weatherCurrentData = await getCurrent(cityName, countryName); 
     const weatherForecastDate = await getForecast(cityName, countryName);
+    console.log(weatherCurrentData);
     
     // console.log(weatherCurrentData.response);
     if (!weatherCurrentData || !weatherForecastDate) {
@@ -112,8 +115,10 @@ class App extends React.Component {
           temp: Math.round(weatherForecastDate.response.forecast[35].maxCelsius),
           weather: weatherForecastDate.response.forecast[35].weather,
         },
-      ]
-    })
+      ],
+      currentLat: weatherCurrentData.response.city.coord.lat,
+      currentLon: weatherCurrentData.response.city.coord.lon,
+    }, console.log(123, this.state))
 
     this.handleLoadingFinish();
   }
@@ -144,13 +149,14 @@ class App extends React.Component {
 
   handleAddCity = () => {
     const { cityName, countryName, cityArray, cityNumber } = this.state;
-    if (cityArray.length > '3') {
-      alert ('maximum number of cities(4) reached, could not add any more city')
-      return;
-    }
 
     if (!cityName || !countryName) {
       alert('please enter city name and country name')
+      return;
+    }
+
+    if (cityArray.length > '3') {
+      alert ('maximum number of cities(4) reached, could not add any more city')
       return;
     }
 
@@ -165,19 +171,17 @@ class App extends React.Component {
   }
 
   handleDeleteCard = (index) => {
-    console.log('delete card');
-    console.log('cardIndex', index);
-
     const newCardArray = [...this.state.cityArray];
     newCardArray.splice(index, 1);
     this.setState({
       cityArray: newCardArray,
-    }, () => console.log(this.state.cityArray));
+    });
   }
 
-  testCity(city) {
+  testCity(city, country) {
     this.setState({
       cityName: city,
+      countryName: country,
     }, () => this.getCurrentData());
     
   }
@@ -252,7 +256,10 @@ class App extends React.Component {
           </div>
           <div className={styles.weather__divider}></div>
           <div className={styles.weather_bottom}>
-            <News />
+            <GoogleMap 
+              lat={this.state.currentLat}
+              lon={this.state.currentLon}
+            />
             <div className={styles.weather_bottom__divider}></div>
             <Forecast today={today} forecast={forecast}/>
           </div>

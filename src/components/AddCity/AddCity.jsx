@@ -12,8 +12,7 @@ class AddCity extends React.Component {
   }
 
   handleCardCity = () => {
-    this.props.onRender(this.state.city);
-    console.log('addCity.js', this.state.city);
+    this.props.onRender(this.state.city, this.state.country);
   }
 
   handleDeleteCard = () => {
@@ -34,7 +33,12 @@ class AddCity extends React.Component {
           Country: {this.state.country}
         </p>
       </button>
-      <button className={styles.delete} onClick={this.handleDeleteCard}>X</button>
+      <button 
+        className={styles.delete} 
+        onClick={this.handleDeleteCard}
+      >
+        X
+      </button>
     </div>
   )
   }
