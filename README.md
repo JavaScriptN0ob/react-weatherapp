@@ -27,6 +27,13 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
+### if you do not want to download or run any codes here, please see my screen shoots for details please.
+
+![image](https://github.com/JavaScriptN0ob/react-weatherapp/blob/master/screenshoots/01.png)
+![image](https://github.com/JavaScriptN0ob/react-weatherapp/blob/master/screenshoots/02.png)
+![image](https://github.com/JavaScriptN0ob/react-weatherapp/blob/master/screenshoots/03.png)
+![image](https://github.com/JavaScriptN0ob/react-weatherapp/blob/master/screenshoots/04.png)
+
 ### `yarn eject`
 
 **Note: this is a one-way operation. Once you `eject`, you can’t go back!**
