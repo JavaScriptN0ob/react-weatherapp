@@ -56,9 +56,6 @@ class App extends React.Component {
     };
     
     this.getCurrentData = this.getCurrentData.bind(this);
-    this.handleCountryInput = this.handleCountryInput.bind(this);
-    this.handleCityInput = this.handleCityInput.bind(this);
-    this.testCity = this.testCity.bind(this);
   }
 
   async getCurrentData() {
@@ -123,13 +120,13 @@ class App extends React.Component {
     this.handleLoadingFinish();
   }
 
-  handleCountryInput(countryText) {
+  handleCountryInput = (countryText) => {
     this.setState({
       countryName: countryText,
     })
   }
 
-  handleCityInput(cityText) {
+  handleCityInput = (cityText) => {
     this.setState({
       cityName: cityText,
     })
@@ -178,7 +175,7 @@ class App extends React.Component {
     });
   }
 
-  testCity(city, country) {
+  renderCityFromAdded = (city, country) => {
     this.setState({
       cityName: city,
       countryName: country,
@@ -207,7 +204,7 @@ class App extends React.Component {
                   city={this.state.cityName}
                   country={this.state.countryName}
                   index={index}
-                  onRender={this.testCity}
+                  onRender={this.renderCityFromAdded}
                   onDelete={this.handleDeleteCard}
                 />
               )
@@ -236,7 +233,7 @@ class App extends React.Component {
                 city={this.state.cityName}
                 country={this.state.countryName}
                 index={index}
-                onRender={this.testCity}
+                onRender={this.renderCityFromAdded}
                 onDelete={this.handleDeleteCard}
               />
             )
