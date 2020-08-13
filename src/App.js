@@ -197,13 +197,12 @@ class App extends React.Component {
             onSearch={this.getCurrentData}
           />
           <div className={styles.new_city}>
-            {this.state.cityArray.map((item, index) => {
+            {this.state.cityArray.map((index) => {
               return (
                 <AddCity
                   key={index}
                   city={this.state.cityName}
                   country={this.state.countryName}
-                  index={index}
                   onRender={this.renderCityFromAdded}
                   onDelete={this.handleDeleteCard}
                 />
@@ -226,13 +225,12 @@ class App extends React.Component {
           onAdd={this.handleAddCity}
         />
         <div className={styles.new_city}>
-          {this.state.cityArray.map((item, index) => {
+          {this.state.cityArray.map((index) => {
             return (
               <AddCity
                 key={index}
                 city={this.state.cityName}
                 country={this.state.countryName}
-                index={index}
                 onRender={this.renderCityFromAdded}
                 onDelete={this.handleDeleteCard}
               />

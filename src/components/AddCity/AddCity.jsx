@@ -7,7 +7,6 @@ class AddCity extends React.Component {
     this.state = {
       city: this.props.city,
       country: this.props.country,
-      index: this.props.index,
     }
   }
 
@@ -16,7 +15,7 @@ class AddCity extends React.Component {
   }
 
   handleDeleteCard = () => {
-    this.props.onDelete(this.state.index)
+    this.props.onDelete(this.props.key)
   }
 
   render() {
